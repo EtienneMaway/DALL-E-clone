@@ -1,11 +1,9 @@
 /** @format */
 
-import express from "express";
-import * as dotenv from "dotenv";
-import { v2 as cloudinary } from "cloudinary";
-import PostSchema from "../mongoDb/models/post.js";
-// import { Buffer } from "buffer";
-// import fs from "fs";
+import express from 'express';
+import * as dotenv from 'dotenv';
+import { v2 as cloudinary } from 'cloudinary';
+import PostSchema from '../mongoDb/models/post.js';
 
 dotenv.config();
 
@@ -18,7 +16,7 @@ cloudinary.config({
 });
 
 //Get ALL POSTS
-router.route("/").get(async (req, res) => {
+router.route('/').get(async (req, res) => {
 	try {
 		const posts = await PostSchema.find({});
 		res.status(200).json({ success: true, data: posts });
@@ -28,16 +26,9 @@ router.route("/").get(async (req, res) => {
 });
 
 //Create POST
-router.route("/").post(async (req, res) => {
+router.route('/').post(async (req, res) => {
 	try {
 		const { name, prompt, photo } = req.body;
-		// const dataUrlRegex = /^data:image\/\w+;base64,/;
-		// const base64Data = photo.replace(dataUrlRegex, "");
-		// const imageBuffer = Buffer.from(base64Data, "base64");
-
-		// // Create a temporary file to hold the image data
-		// const tempFilePath = "./tempImage.jpg";
-		// fs.writeFileSync(tempFilePath, imageBuffer);
 
 		const photoUrl = await cloudinary.uploader.upload(photo);
 
